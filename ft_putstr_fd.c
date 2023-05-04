@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:56:54 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/03 11:35:58 by mcutura          ###   ########.fr       */
+/*   Updated: 2023/05/04 13:10:22 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	while (*s)
-		write(fd, s++, 1);
+	size_t	len;
+
+	len = ft_strlen(s);
+	write(fd, s, len);
 }
