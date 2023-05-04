@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:35:16 by mcutura           #+#    #+#             */
-/*   Updated: 2023/03/18 18:39:01 by mcutura          ###   ########.fr       */
+/*   Updated: 2023/05/04 13:50:04 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	(*del)(lst->content);
+	del(lst->content);
 	free(lst);
 }
