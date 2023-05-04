@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 06:00:52 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/03 16:50:59 by mcutura          ###   ########.fr       */
+/*   Updated: 2023/05/04 12:44:14 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ static int	count_words(const char *s, char c)
 	return (count);
 }
 
+static char	*get_word(const char *s, int *size)
+{
+	char	*word;
+
+	word = ft_substr(s, 0, *size);
+	*size = 0;
+	return (word);
+}
+
+static void	graciously_exit(char **spl, int i)
+{
+	while (i--)
+		free(spl[i]);
+	free(spl);
+}
+
 char	**ft_split(const char *s, char c)
 {
 	char	**spl;
@@ -54,8 +70,9 @@ char	**ft_split(const char *s, char c)
 	{
 		if ((*s == c || !*s) && word)
 		{
-			spl[i++] = ft_substr(s - word, 0, word);
-			word = 0;
+			spl[i] = get_word(s - word, &word);
+			if (!spl[i++])
+				return (graciously_exit(spl, i), NULL);
 		}
 		else if (*s != c)
 			++word;
