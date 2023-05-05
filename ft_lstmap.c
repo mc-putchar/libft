@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:49:40 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/04 13:56:58 by mcutura          ###   ########.fr       */
+/*   Updated: 2023/05/05 17:07:29 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*map;
 	t_list	*node;
 
-	if (!lst)
-		return (NULL);
 	map = NULL;
 	while (lst)
 	{
-		node = ft_lstnew(f(lst->content));
+		node = ft_lstnew((*f)(lst->content));
 		if (!node)
 		{
 			ft_lstclear(&map, del);
