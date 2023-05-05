@@ -6,7 +6,7 @@
 #    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2023/05/03 11:01:59 by mcutura          ###   ########.fr        #
+#    Updated: 2023/05/05 14:00:12 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,11 @@ $(NAME): $(OBJS) $(HEADER)
 
 all: $(NAME) bonus
 
-bonus: $(BONUSOBJS)
+bonus: $(BONUSOBJS) $(HEADER)
 	$(AR) $(ARFLAGS) $(NAME) $(BONUSOBJS)
 
-clean: bonusclean
+clean:
 	$(RM) $(OBJS)
-
-bonusclean:
 	$(RM) $(BONUSOBJS)
 
 fclean: clean
