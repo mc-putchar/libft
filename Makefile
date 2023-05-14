@@ -26,7 +26,7 @@ HEADER := libft.h
 CFLAGS := -Wall -Wextra -Werror
 ARFLAGS := rcs
 
-.PHONY: all bonus clean bonusclean fclean re
+.PHONY: all bonus clean fclean re
 
 $(NAME): $(OBJS) $(HEADER)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
