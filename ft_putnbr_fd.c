@@ -12,29 +12,33 @@
 
 #include "libft.h"
 
-static void	ft_putn(int n, int fd)
+static ssize_t	ft_putn(int n, int fd)
 {
+	ssize_t	c;
+
+	c = 0;
 	if (!n)
-		return ;
+		return (0);
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
+		c += ft_putchar_fd('-', fd);
 		if (n < -9)
-			ft_putn(n / 10 * -1, fd);
-		ft_putchar_fd(n % 10 * -1 + '0', fd);
+			c += ft_putn(n / 10 * -1, fd);
+		c += ft_putchar_fd(n % 10 * -1 + '0', fd);
 	}
 	else
 	{
 		if (n > 9)
-			ft_putn(n / 10, fd);
-		ft_putchar_fd(n % 10 + '0', fd);
+			c += ft_putn(n / 10, fd);
+		c += ft_putchar_fd(n % 10 + '0', fd);
 	}
+	return (c);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+ssize_t	ft_putnbr_fd(int n, int fd)
 {
 	if (!n)
-		ft_putchar_fd('0', fd);
+		return (ft_putchar_fd('0', fd));
 	else
-		ft_putn(n, fd);
+		return (ft_putn(n, fd));
 }
