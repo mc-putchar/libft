@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 05:35:21 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/27 01:07:14 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:12:18 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	joined = malloc(len);
 	if (!joined)
 		return (NULL);
-	joined[len] = 0;
+	joined[--len] = 0;
 	while (len-- > i)
 		joined[len] = s2[len - i];
 	while (i--)

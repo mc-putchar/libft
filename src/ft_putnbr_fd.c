@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:00:52 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/03 16:25:19 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:12:18 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,25 @@
 
 ssize_t	ft_putnbr_fd(int n, int fd)
 {
-	ssize_t	res;
+	size_t	len;
+	char	num[20];
 	int		d;
-	char	c;
 
+	len = 0;
+	if (n < 0 && ++len)
+		num[0] = '-';
+	d = n;
+	while (++len && (d < -9 || d > 9))
+		d /= 10;
+	if (len > 20)
+		return (-1);
+	d = len;
 	if (!n)
-		return (write(fd, "0", 1));
-	res = 0;
-	if (n < 0)
+		num[0] = '0';
+	while (n)
 	{
-		res += write(fd, "-", 1);
-		n = -n;
+		num[--d] = n % 10 * ((n > 0) * 2 - 1) + '0';
+		n /= 10;
 	}
-	while (n > 9)
-	{
-		d = n;
-		while (d > 9)
-			d /= 10;
-		n -= d;
-		c = '0' + d;
-		res += write(fd, &c, 1);
-	}
-	return (res);
+	return (write(fd, num, len));
 }

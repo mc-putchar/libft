@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 20:05:44 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/03 11:26:25 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:12:18 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	i = 0;
 	if (srclen && size)
 	{
-		while (*src && i + dstlen < size - 1)
+		while (src[i] && i + dstlen < size - 1)
 		{
 			dst[dstlen + i] = src[i];
 			++i;

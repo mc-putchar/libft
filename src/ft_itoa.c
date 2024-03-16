@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:34:55 by mcutura           #+#    #+#             */
-/*   Updated: 2024/03/15 15:03:41 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:07:16 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	intlen(int n)
 	size_t	len;
 
 	len = (n < 0);
-	while (++len && n)
+	while (++len && (n > 9 || n < -9))
 		n /= 10;
 	return (len);
 }

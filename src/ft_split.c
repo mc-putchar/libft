@@ -6,10 +6,11 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 06:00:52 by mcutura           #+#    #+#             */
-/*   Updated: 2024/03/15 15:01:19 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:12:18 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
 #include <stdlib.h>
 
 static size_t	word_count(const char *s, char c)
@@ -21,7 +22,7 @@ static size_t	word_count(const char *s, char c)
 	inword = 0;
 	while (*s)
 	{
-		if (*s != c)
+		if (*s++ != c)
 			++inword;
 		else if (inword && ++words)
 			inword = 0;

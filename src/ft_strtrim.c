@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 05:43:39 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/03 12:49:21 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:06:45 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strtrim(const char *s1, const char *set)
 	end = len;
 	while (--end > start && is_set(s1[end], set))
 		;
-	trim = malloc(end - start + 1);
+	trim = malloc(++end - start + 1);
 	if (!trim)
 		return (NULL);
 	len = 0;
