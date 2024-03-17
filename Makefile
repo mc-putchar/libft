@@ -6,7 +6,7 @@
 #    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2023/05/05 14:00:12 by mcutura          ###   ########.fr        #
+#    Updated: 2024/03/17 08:04:47 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,14 @@ I/O := $(addprefix $(BINDIR)/, ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o \
 LST := $(addprefix $(BINDIR)/, ft_lstadd_front.o ft_lstadd_back.o \
 	ft_lstdelone.o ft_lstclear.o ft_lstnew.o ft_lstsize.o ft_lstiter.o \
 	ft_lstlast.o ft_lstmap.o)
+GNL := $(BINDIR)/get_next_line.o
 
 HEADER := libft.h
 MEMH := libft_mem.h
 STRH := libft_str.h
 I/OH := libft_io.h
 LSTH := libft_lst.h
+GNLH := get_next_line.h
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -pedantic -std=c99
@@ -44,9 +46,9 @@ ARFLAGS := src
 MKDIR := mkdir -p
 INSTALL :=
 
-.PHONY: all bonus clean fclean re debug release install
+.PHONY: all clean fclean re debug release install
 
-all: $(NAME) bonus
+all: $(NAME)
 
 $(IDN): $(INCDIR)/$(HEADER)
 $(CON): $(INCDIR)/$(HEADER)
@@ -54,14 +56,13 @@ $(MEM): $(INCDIR)/$(MEMH)
 $(STR): $(INCDIR)/$(STRH)
 $(I/O): $(INCDIR)/$(I/OH)
 $(LST): $(INCDIR)/$(LSTH)
+$(GNL): $(INCDIR)/$(GNLH)
 
-$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O)
-	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O)
+$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL)
+	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL)
 
-bonus: $(LST)
-	$(AR) $(ARFLAGS) $(NAME) $(LST)
-
-$(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST): $(BINDIR)/%.o: $(SRCDIR)/%.c |$(BINDIR)
+$(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL): \
+  $(BINDIR)/%.o: $(SRCDIR)/%.c |$(BINDIR)
 	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(BINDIR):

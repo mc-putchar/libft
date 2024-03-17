@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 21:39:24 by mcutura           #+#    #+#             */
-/*   Updated: 2024/03/16 14:12:18 by mcutura          ###   ########.fr       */
+/*   Created: 2024/03/16 16:08:02 by mcutura           #+#    #+#             */
+/*   Updated: 2024/03/17 06:09:33 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+struct s_gnl_data
 {
-	size_t	i;
+	size_t	off;
+	ssize_t	end;
+	char	buff[BUFFER_SIZE];
+};
 
-	i = 0;
-	while (i < n && s1[i] && !(s1[i] - s2[i]))
-		++i;
-	if (i != n)
-		return ((((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]));
-	return (0);
-}
+char	*get_delim(int fd, int delim);
+char	*get_next_line(int fd);
+
+#endif // GET_NEXT_LINE_H
