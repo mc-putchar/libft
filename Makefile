@@ -6,7 +6,7 @@
 #    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2024/03/16 21:11:03 by mcutura          ###   ########.fr        #
+#    Updated: 2024/03/17 08:04:47 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,9 @@ ARFLAGS := src
 MKDIR := mkdir -p
 INSTALL :=
 
-.PHONY: all bonus clean fclean re debug release install
+.PHONY: all clean fclean re debug release install
 
-all: $(NAME) bonus
+all: $(NAME)
 
 $(IDN): $(INCDIR)/$(HEADER)
 $(CON): $(INCDIR)/$(HEADER)
@@ -58,11 +58,8 @@ $(I/O): $(INCDIR)/$(I/OH)
 $(LST): $(INCDIR)/$(LSTH)
 $(GNL): $(INCDIR)/$(GNLH)
 
-$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(GNL)
-	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(GNL)
-
-bonus: $(LST)
-	$(AR) $(ARFLAGS) $(NAME) $(LST)
+$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL)
+	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL)
 
 $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL): \
   $(BINDIR)/%.o: $(SRCDIR)/%.c |$(BINDIR)

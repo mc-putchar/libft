@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:22:28 by mcutura           #+#    #+#             */
-/*   Updated: 2024/03/16 21:09:10 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/03/17 07:59:21 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBFT_IO_H
 
 # include <sys/types.h>
-# include "get_next_line.h"
 
 ssize_t	ft_putchar_fd(char c, int fd);
 ssize_t	ft_putstr_fd(char *s, int fd);

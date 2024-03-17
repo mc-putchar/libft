@@ -25,6 +25,9 @@
 /* Linked list */
 # include "libft_lst.h"
 
+/* GNL */
+# include "get_next_line.h"
+
 /* Identity functions */
 int		ft_islower(int c);
 int		ft_isupper(int c);
