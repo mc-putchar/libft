@@ -37,6 +37,7 @@ int		ft_isalnum(int c);
 int		ft_isprint(int c);
 int		ft_isascii(int c);
 int		ft_isspace(int c);
+int		ft_isnumber(char const *str);
 
 /* Conversion functions */
 int		ft_tolower(int c);

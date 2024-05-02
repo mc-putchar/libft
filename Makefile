@@ -6,7 +6,7 @@
 #    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2024/05/02 11:56:25 by mcutura          ###   ########.fr        #
+#    Updated: 2024/05/02 12:14:58 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,15 @@ BINDIR := bin
 INCDIR := include
 
 IDN := $(addprefix $(BINDIR)/, ft_isalnum.o ft_isalpha.o ft_isascii.o \
-	ft_isdigit.o ft_isprint.o)
-CON := $(addprefix $(BINDIR)/, ft_atoi.o ft_tolower.o ft_toupper.o ft_itoa.o)
-CON := $(addprefix $(BINDIR)/, ft_atod.o)
+	ft_isdigit.o ft_isprint.o ft_isnumber.o)
+CON := $(addprefix $(BINDIR)/, ft_atoi.o ft_tolower.o ft_toupper.o ft_itoa.o \
+	ft_atod.o)
 MEM := $(addprefix $(BINDIR)/, ft_bzero.o ft_calloc.o ft_memchr.o ft_memrchr.o \
 	ft_memcmp.o ft_memcpy.o ft_memccpy.o ft_memset.o ft_memmove.o)
 STR := $(addprefix $(BINDIR)/, ft_strchr.o ft_strdup.o ft_strjoin.o \
 	ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strncmp.o ft_strnstr.o \
-	ft_strrchr.o ft_strtrim.o ft_substr.o ft_strmapi.o ft_striteri.o ft_split.o)
+	ft_strrchr.o ft_strtrim.o ft_substr.o ft_strmapi.o ft_striteri.o \
+	ft_split.o ft_splits.o)
 I/O := $(addprefix $(BINDIR)/, ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o \
 	ft_putnbr_fd.o)
 LST := $(addprefix $(BINDIR)/, ft_lstadd_front.o ft_lstadd_back.o \
