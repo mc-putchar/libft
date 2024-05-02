@@ -44,5 +44,6 @@ int		ft_toupper(int c);
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
 char	*ft_uitoa(unsigned int n);
+double	ft_atod(char const *str);
 
 #endif
