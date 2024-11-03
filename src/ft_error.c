@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 19:58:02 by mcutura           #+#    #+#             */
-/*   Updated: 2024/11/03 22:35:26 by mcutura          ###   ########.fr       */
+/*   Created: 2024/11/02 23:12:04 by mcutura           #+#    #+#             */
+/*   Updated: 2024/11/03 01:25:10 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "ft_printf.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	throw_error(int err, char const *msg)
 {
-	size_t	srclen;
-	size_t	i;
+	(void)ft_dprintf(2, "%s\n", msg);
+	return (err);
+}
 
-	srclen = 0;
-	while (src[srclen])
-		++srclen;
-	if (!size)
-		return (srclen);
-	if (size > srclen)
-		size = srclen + 1;
-	i = 0;
-	while (i < size - 1)
-	{
-		dst[i] = src[i];
-		++i;
-	}
-	dst[i] = 0;
-	return (srclen);
+void	print_error(char const *msg)
+{
+	(void)ft_dprintf(2, "%s\n", msg);
 }

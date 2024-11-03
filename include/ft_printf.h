@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:35:15 by mcutura           #+#    #+#             */
-/*   Updated: 2024/04/16 22:58:32 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/08/03 16:20:36 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 
 # define PRINTF_SPECIFIERS	"%cdiuxXsp"
 # define PRINTF_FLAGS		"-0# +"
-# define LEFT_ALIGN			(1)
-# define ZERO_PADDED		(1 << 1)
-# define ALT_FORM			(1 << 2)
-# define PREFIX_BLANK		(1 << 3)
-# define PREFIX_SIGN		(1 << 4)
+# define LEFT_ALIGN			1
+# define ZERO_PADDED		2
+# define ALT_FORM			4
+# define PREFIX_BLANK		8
+# define PREFIX_SIGN		16
 
 # define HEX_OFFSET_LOWER	39
 # define HEX_OFFSET_UPPER	7

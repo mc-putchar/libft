@@ -6,7 +6,7 @@
 #    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2024/05/02 12:14:58 by mcutura          ###   ########.fr        #
+#    Updated: 2024/11/02 23:18:47 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ LST := $(addprefix $(BINDIR)/, ft_lstadd_front.o ft_lstadd_back.o \
 GNL := $(BINDIR)/get_next_line.o
 PRNTF := $(addprefix $(BINDIR)/, ft_printf.o ft_printf_utils.o \
 	ft_printf_converters.o ft_printf_converters_hex.o)
+OTHER := $(addprefix $(BINDIR)/, ft_error.o)
 
 HEADER := libft.h
 MEMH := libft_mem.h
@@ -63,11 +64,14 @@ $(I/O): $(INCDIR)/$(I/OH)
 $(LST): $(INCDIR)/$(LSTH)
 $(GNL): $(INCDIR)/$(GNLH)
 $(PRNTF): $(INCDIR)/$(PRNTFH)
+$(OTHER): $(INCDIR)/$(HEADER)
 
-$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF)
-	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF)
+$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) \
+  $(GNL) $(PRNTF) $(OTHER)
+	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) \
+	$(GNL) $(PRNTF) $(OTHER)
 
-$(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF): \
+$(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF) $(OTHER): \
   $(BINDIR)/%.o: $(SRCDIR)/%.c |$(BINDIR)
 	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 

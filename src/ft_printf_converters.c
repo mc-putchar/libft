@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:14:55 by mcutura           #+#    #+#             */
-/*   Updated: 2024/04/16 22:45:28 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/06/22 04:02:49 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char	*char_con(t_format *fmt)
 {
 	char	*tmp;
 
-	tmp = malloc(2);
+	if (fmt->width > 1)
+		tmp = malloc(fmt->width);
+	else
+		tmp = malloc(1);
 	if (!tmp)
 	{
 		fmt->len = 0;
@@ -26,10 +29,21 @@ char	*char_con(t_format *fmt)
 	}
 	fmt->len = 1;
 	tmp[0] = (char)fmt->u_arg.i;
-	tmp[1] = 0;
+	if (fmt->width > 1)
+	{
+		if (fmt->flags & LEFT_ALIGN)
+			ft_memset(tmp + 1, 32, fmt->width - 1);
+		else
+		{
+			tmp[fmt->width - 1] = tmp[0];
+			ft_memset(tmp, 32, fmt->width - 1);
+		}
+		fmt->len = fmt->width;
+	}
 	return (tmp);
 }
 
+/* TODO: Add zero padding and blank prefix */
 char	*int_con(t_format *fmt)
 {
 	char	*tmp;
@@ -37,7 +51,7 @@ char	*int_con(t_format *fmt)
 	tmp = ft_itoa(fmt->u_arg.i);
 	if (!tmp)
 		return (NULL);
-	if (!fmt->precision && tmp[0] == '0')
+	if (!fmt->precision && !fmt->u_arg.i)
 		tmp[0] = 0;
 	fmt->len = ft_strlen(tmp);
 	return (tmp);

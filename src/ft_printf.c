@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:04:33 by mcutura           #+#    #+#             */
-/*   Updated: 2024/04/16 21:33:20 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/08/03 16:26:25 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	print_substr(const char *str, int start, int end, int fd)
 	return (ret);
 }
 
+// TODO
+// apply flag modifications
 int	print_formatted(const char *fmt, int *i, va_list ap, int fd)
 {
 	static t_converter const	converter[8] = {char_con, int_con, int_con, \
@@ -114,8 +116,6 @@ int	print_formatted(const char *fmt, int *i, va_list ap, int fd)
 	format.out = converter[format.specifier - 1](&format);
 	if (!format.out)
 		return (-1);
-	// TODO
-	// apply flag modifications
 	ret = write(fd, format.out, format.len);
 	free(format.out);
 	return (ret);

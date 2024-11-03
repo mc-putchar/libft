@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:18:12 by mcutura           #+#    #+#             */
-/*   Updated: 2023/05/03 11:38:55 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/11/03 01:25:48 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 /* GNL */
 # include "get_next_line.h"
 
+/* Print formatted */
+# include "ft_printf.h"
+
 /* Identity functions */
 int		ft_islower(int c);
 int		ft_isupper(int c);
@@ -46,5 +49,9 @@ int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
 char	*ft_uitoa(unsigned int n);
 double	ft_atod(char const *str);
+
+/* Unlabeled */
+int		throw_error(int err, char const *msg);
+void	print_error(char const *msg);
 
 #endif
