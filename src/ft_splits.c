@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_splits.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 06:00:52 by mcutura           #+#    #+#             */
-/*   Updated: 2024/03/16 14:12:18 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/12/23 08:25:19 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdlib.h>
 
-static inline int	is_separator(char c, const char *sep)
+int	is_separator(char c, const char *sep)
 {
 	int	i;
 

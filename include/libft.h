@@ -6,7 +6,7 @@
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:18:12 by mcutura           #+#    #+#             */
-/*   Updated: 2024/11/03 01:25:48 by mcutura          ###   ########.fr       */
+/*   Updated: 2024/12/23 08:25:36 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		ft_isprint(int c);
 int		ft_isascii(int c);
 int		ft_isspace(int c);
 int		ft_isnumber(char const *str);
+int		is_separator(char c, const char *sep);
 
 /* Conversion functions */
 int		ft_tolower(int c);
