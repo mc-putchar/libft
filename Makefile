@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcutura <mcutura@student.42.fr>            +#+  +:+       +#+         #
+#    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2025/07/06 02:28:16 by mcutura          ###   ########.fr        #
+#    Updated: 2025/07/06 02:54:42 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,14 +44,6 @@ I/OH := libft_io.h
 LSTH := libft_lst.h
 GNLH := get_next_line.h
 PRNTFH := ft_printf.h
-
-TESTS := test.out
-TESTSRC :=
-vpath %.c $(TESTDIR) $(SRCDIR)
-TESTSRC += ft_printf_test.c
-
-TESTBIN := $(TESTSRC:.c=.o)
-TESTBIN := $(addprefix $(BINDIR)/, $(TESTBIN))
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -pedantic -std=c99
@@ -98,10 +90,11 @@ clean:
 	$(RM) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF) \
 	$(OTHER)
 	$(RM) -r $(BINDIR)
+	$(MAKE) -C $(TESTDIR) $(MAKECMDGOALS)
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) $(TESTS)
+	$(MAKE) -C $(TESTDIR) $(MAKECMDGOALS)
 
 re: fclean
 	$(MAKE) all
@@ -109,11 +102,5 @@ re: fclean
 debug:
 	DEBUG=1 $(MAKE) re
 
-# test: $(TESTS)
-# 	./$(TESTS)
-
-# $(TESTS): $(NAME) $(TESTBIN) | $(BINDIR)
-# 	$(CC) $(CFLAGS) -I$(INCDIR) $(TESTBIN) -o $@ -L. -lft
-
-# $(BINDIR)/%.o: $(TESTDIR)/%.c | $(BINDIR)
-# 	$(CC) $(CFLAGS) -w -ggdb3 -Og -Iinclude -c $< -o $@
+test: $(NAME)
+	$(MAKE) -C $(TESTDIR) $(MAKECMDGOALS)
