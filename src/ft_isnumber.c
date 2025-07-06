@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 19:58:02 by mcutura           #+#    #+#             */
-/*   Updated: 2024/11/03 22:35:26 by mcutura          ###   ########.fr       */
+/*   Created: 2024/04/16 23:15:24 by mcutura           #+#    #+#             */
+/*   Updated: 2024/06/22 02:39:39 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	ft_isnumber(char const *str)
 {
-	size_t	srclen;
-	size_t	i;
-
-	srclen = 0;
-	while (src[srclen])
-		++srclen;
-	if (!size)
-		return (srclen);
-	if (size > srclen)
-		size = srclen + 1;
-	i = 0;
-	while (i < size - 1)
+	if (*str == '-' || *str == '+')
+		++str;
+	while (*str)
 	{
-		dst[i] = src[i];
-		++i;
+		if (*str < '0' || *str > '9')
+			return (0);
+		++str;
 	}
-	dst[i] = 0;
-	return (srclen);
+	return (1);
 }

@@ -1,3 +1,10 @@
-bin/
+.cache/
+.vscode/
+build/
+compile_commands.json
 *.a
-**/.vscode
+*.o
+*.d
+test.out
+unit_test
+*.log

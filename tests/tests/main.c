@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 19:58:02 by mcutura           #+#    #+#             */
-/*   Updated: 2024/11/03 22:35:26 by mcutura          ###   ########.fr       */
+/*   Created: 2024/11/03 20:46:23 by mcutura           #+#    #+#             */
+/*   Updated: 2024/11/03 23:26:44 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libunit.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+extern int	test_ft_strlen_launcher(void);
+extern int	test_ft_atoi_launcher(void);
+extern int	test_ft_printf_launcher(void);
+
+int	main(int ac, char **av)
 {
-	size_t	srclen;
-	size_t	i;
+	int	res;
 
-	srclen = 0;
-	while (src[srclen])
-		++srclen;
-	if (!size)
-		return (srclen);
-	if (size > srclen)
-		size = srclen + 1;
-	i = 0;
-	while (i < size - 1)
-	{
-		dst[i] = src[i];
-		++i;
-	}
-	dst[i] = 0;
-	return (srclen);
+	if (ac != 1)
+		return ((void)av, 1);
+	res = 0;
+	res |= test_ft_strlen_launcher();
+	res |= test_ft_atoi_launcher();
+	res |= test_ft_printf_launcher();
+	return (res);
 }
