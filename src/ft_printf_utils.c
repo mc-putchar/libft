@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mcutura <mcutura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:58:32 by mcutura           #+#    #+#             */
-/*   Updated: 2024/04/16 22:45:06 by mcutura          ###   ########.fr       */
+/*   Updated: 2025/07/05 20:47:43 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
+#include <stdlib.h>
 #include "ft_printf.h"
 #include "libft.h"
 
@@ -79,4 +81,14 @@ void	parse_format(t_format *fmt, const char *format, int *i)
 			fmt->precision = get_precision(format, i);
 		fmt->specifier = indexof(format[*i], PRINTF_SPECIFIERS);
 	}
+}
+
+int	safe_alloc(char **ptr, size_t size)
+{
+	if (!ptr || !size)
+		return (-1);
+	*ptr = malloc(size);
+	if (!*ptr)
+		return (-1);
+	return (0);
 }

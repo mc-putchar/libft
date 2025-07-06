@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_converters_hex.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mcutura <mcutura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:40:10 by mcutura           #+#    #+#             */
-/*   Updated: 2024/08/03 16:24:50 by mcutura          ###   ########.fr       */
+/*   Updated: 2025/07/06 00:50:13 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static char	*to_hex_str(unsigned long long n, int offset, int prefix);
+static char	*to_hex_str(unsigned long long n, int offset, int prefix, int prec);
 
 char	*hex_con(t_format *fmt)
 {
 	char	*tmp;
 
-	tmp = to_hex_str(fmt->u_arg.ui, HEX_OFFSET_LOWER, fmt->flags & ALT_FORM);
+	tmp = to_hex_str(fmt->u_arg.ui, HEX_OFFSET_LOWER, \
+		((fmt->flags & ALT_FORM) > 0) * 1, fmt->precision);
 	if (!tmp)
 		return (NULL);
 	if (!fmt->precision && !fmt->u_arg.ui)
@@ -34,7 +35,8 @@ char	*uhex_con(t_format *fmt)
 {
 	char	*tmp;
 
-	tmp = to_hex_str(fmt->u_arg.ui, HEX_OFFSET_UPPER, fmt->flags & ALT_FORM);
+	tmp = to_hex_str(fmt->u_arg.ui, HEX_OFFSET_UPPER, \
+		((fmt->flags & ALT_FORM) > 0) * 2, fmt->precision);
 	if (!tmp)
 		return (NULL);
 	if (!fmt->precision && !fmt->u_arg.ui)
@@ -52,10 +54,11 @@ char	*ptr_con(t_format *fmt)
 		fmt->len = 5;
 		return (ft_strdup("(nil)"));
 	}
-	tmp = ft_strjoin("0x", \
-		to_hex_str((unsigned long long)fmt->u_arg.p, HEX_OFFSET_LOWER, 1));
-	if (tmp)
-		fmt->len = ft_strlen(tmp);
+	tmp = to_hex_str((unsigned long long)fmt->u_arg.p, HEX_OFFSET_LOWER, 1, \
+		fmt->precision);
+	if (!tmp)
+		return (NULL);
+	fmt->len = ft_strlen(tmp);
 	return (tmp);
 }
 
@@ -74,25 +77,28 @@ static int	count_digits(unsigned long long n)
 	return (d);
 }
 
-char	*to_hex_str(unsigned long long n, int offset, int prefix)
+char	*to_hex_str(unsigned long long n, int offset, int prefix, int prec)
 {
 	char	*hex;
-	int		i;
+	int		digits;
+	size_t	len;
 
-	i = count_digits(n);
-	hex = malloc(i + 1 + ((prefix != 0) * 2));
-	if (!hex)
+	digits = count_digits(n);
+	len = digits + ((n != 0) * (prefix != 0) * 2);
+	if (prec > digits)
+		len += (prec - digits);
+	if (safe_alloc(&hex, len + 1))
 		return (NULL);
 	if (!n || prefix)
 		hex[0] = '0';
-	hex[i] = 0;
+	hex[len] = 0;
 	if (n && prefix)
 		hex[1] = 'Q' + offset;
-	while (n && i--)
+	while ((int)len-- > ((prefix != 0) * 2))
 	{
-		hex[i] = (n & 0xF) + '0';
-		if (hex[i] > '9')
-			hex[i] += offset;
+		hex[len] = (n & 0xF) + '0';
+		if (hex[len] > '9')
+			hex[len] += offset;
 		n >>= 4;
 	}
 	return (hex);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mcutura <mcutura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:35:15 by mcutura           #+#    #+#             */
-/*   Updated: 2024/08/03 16:20:36 by mcutura          ###   ########.fr       */
+/*   Updated: 2025/07/05 20:47:39 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 # include <stddef.h>
 
 # define PRINTF_SPECIFIERS	"%cdiuxXsp"
+# define SPEC_PERC			0
+# define SPEC_CHAR			1
+# define SPEC_DEC			2
+# define SPEC_INT			3
+# define SPEC_UINT			4
+# define SPEC_HEX_LOWER		5
+# define SPEC_HEX_UPPER		6
+# define SPEC_STRING		7
+# define SPEC_POINTER		8
 # define PRINTF_FLAGS		"-0# +"
 # define LEFT_ALIGN			1
 # define ZERO_PADDED		2
@@ -54,8 +63,9 @@ char	*str_con(t_format *fmt);
 char	*ptr_con(t_format *fmt);
 
 int		indexof(char c, char *str);
+int		safe_alloc(char **ptr, size_t size);
 void	parse_format(t_format *fmt, const char *format, int *i);
-// apply_flags();
+int		apply_flags(t_format *fmt);
 
 int		ft_printf(const char *format, ...);
 int		ft_dprintf(int fd, const char *format, ...);

@@ -3,18 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: mcutura <mcutura@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 12:21:15 by mcutura           #+#    #+#              #
-#    Updated: 2024/11/02 23:18:47 by mcutura          ###   ########.fr        #
+#    Updated: 2025/07/06 02:28:16 by mcutura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := libft.a
 
 SRCDIR := src
-BINDIR := bin
+BINDIR := build
 INCDIR := include
+TESTDIR := tests
 
 IDN := $(addprefix $(BINDIR)/, ft_isalnum.o ft_isalpha.o ft_isascii.o \
 	ft_isdigit.o ft_isprint.o ft_isnumber.o)
@@ -33,7 +34,7 @@ LST := $(addprefix $(BINDIR)/, ft_lstadd_front.o ft_lstadd_back.o \
 	ft_lstlast.o ft_lstmap.o)
 GNL := $(BINDIR)/get_next_line.o
 PRNTF := $(addprefix $(BINDIR)/, ft_printf.o ft_printf_utils.o \
-	ft_printf_converters.o ft_printf_converters_hex.o)
+	ft_printf_converters.o ft_printf_converters_hex.o ft_printf_flags.o)
 OTHER := $(addprefix $(BINDIR)/, ft_error.o)
 
 HEADER := libft.h
@@ -44,15 +45,30 @@ LSTH := libft_lst.h
 GNLH := get_next_line.h
 PRNTFH := ft_printf.h
 
+TESTS := test.out
+TESTSRC :=
+vpath %.c $(TESTDIR) $(SRCDIR)
+TESTSRC += ft_printf_test.c
+
+TESTBIN := $(TESTSRC:.c=.o)
+TESTBIN := $(addprefix $(BINDIR)/, $(TESTBIN))
+
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -pedantic -std=c99
-debug: CFLAGS += -g -Og
-release: CFLAGS += -march=native -O2
+CFLAGS += -march=native -O2
+CPPFLAGS := -I$(INCDIR)
+
+debug: DEBUG := 1
+ifeq ($(DEBUG), 1)
+	CFLAGS += -ggdb3 -Og
+endif
+
+AR := ar
 ARFLAGS := src
 MKDIR := mkdir -p
-INSTALL :=
+RM := rm -f
 
-.PHONY: all clean fclean re debug release install
+.PHONY: all clean fclean re debug test
 
 all: $(NAME)
 
@@ -79,13 +95,25 @@ $(BINDIR):
 	$(MKDIR) $(BINDIR)
 
 clean:
+	$(RM) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF) \
+	$(OTHER)
 	$(RM) -r $(BINDIR)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(TESTS)
 
-re: fclean all
-debug: re
-release: re
-install: release
-	$(INSTALL)
+re: fclean
+	$(MAKE) all
+
+debug:
+	DEBUG=1 $(MAKE) re
+
+# test: $(TESTS)
+# 	./$(TESTS)
+
+# $(TESTS): $(NAME) $(TESTBIN) | $(BINDIR)
+# 	$(CC) $(CFLAGS) -I$(INCDIR) $(TESTBIN) -o $@ -L. -lft
+
+# $(BINDIR)/%.o: $(TESTDIR)/%.c | $(BINDIR)
+# 	$(CC) $(CFLAGS) -w -ggdb3 -Og -Iinclude -c $< -o $@

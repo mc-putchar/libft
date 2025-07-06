@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcutura <mcutura@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mcutura <mcutura@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:04:33 by mcutura           #+#    #+#             */
-/*   Updated: 2024/08/03 16:26:25 by mcutura          ###   ########.fr       */
+/*   Updated: 2025/07/05 20:22:59 by mcutura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int	print_substr(const char *str, int start, int end, int fd)
 	return (ret);
 }
 
-// TODO
-// apply flag modifications
 int	print_formatted(const char *fmt, int *i, va_list ap, int fd)
 {
 	static t_converter const	converter[8] = {char_con, int_con, int_con, \
@@ -105,16 +103,18 @@ int	print_formatted(const char *fmt, int *i, va_list ap, int fd)
 	parse_format(&format, fmt, i);
 	if (format.specifier < 0)
 		return (0);
-	if (!format.specifier)
+	if (format.specifier == SPEC_PERC)
 		return (write(fd, &"%", 1));
 	if (format.specifier > 6)
 		format.u_arg.p = va_arg(ap, void *);
 	else if (format.specifier > 3)
-		format.u_arg.ui = (unsigned int)va_arg(ap, unsigned int);
+		format.u_arg.ui = va_arg(ap, unsigned int);
 	else
 		format.u_arg.i = va_arg(ap, int);
 	format.out = converter[format.specifier - 1](&format);
 	if (!format.out)
+		return (-1);
+	if (format.specifier > 1 && apply_flags(&format))
 		return (-1);
 	ret = write(fd, format.out, format.len);
 	free(format.out);
