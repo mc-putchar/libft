@@ -15,6 +15,8 @@
 extern int	test_ft_strlen_launcher(void);
 extern int	test_ft_atoi_launcher(void);
 extern int	test_ft_printf_launcher(void);
+extern int	test_ft_memcpy_launcher(void);
+extern int	test_ft_memmove_launcher(void);
 
 int	main(int ac, char **av)
 {
@@ -26,5 +28,7 @@ int	main(int ac, char **av)
 	res |= test_ft_strlen_launcher();
 	res |= test_ft_atoi_launcher();
 	res |= test_ft_printf_launcher();
+	res |= test_ft_memcpy_launcher();
+	res |= test_ft_memmove_launcher();
 	return (res);
 }
