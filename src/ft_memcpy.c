@@ -26,7 +26,7 @@ void	*ft_memcpy(void	*dest, const void *src, size_t n)
 	i = 0;
 	if (dest_align_offset == src_align_offset)
 	{
-		while (i < dest_align_offset && i < n)
+		while (i <= dest_align_offset && i < n)
 		{
 			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
 			++i;
