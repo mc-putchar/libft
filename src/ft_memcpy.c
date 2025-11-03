@@ -12,16 +12,31 @@
 
 #include <stddef.h>
 
+static inline size_t	alignment_offset(void const *const ptr)
+{
+	return ((sizeof(size_t) - ((size_t)ptr % sizeof(size_t))) % sizeof(size_t));
+}
+
 void	*ft_memcpy(void	*dest, const void *src, size_t n)
 {
-	size_t	i;
+	size_t const	dest_align_offset = alignment_offset(dest);
+	size_t const	src_align_offset = alignment_offset(src);
+	size_t			i;
 
 	i = 0;
-	while (i + (sizeof(size_t)) <= n)
+	if (dest_align_offset == src_align_offset)
 	{
-		((size_t *)dest)[i / (sizeof(size_t))] = \
-			((size_t *)src)[i / (sizeof(size_t))];
-		i += (sizeof(size_t));
+		while (i < dest_align_offset && i < n)
+		{
+			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+			++i;
+		}
+		while (i + (sizeof(size_t)) <= n)
+		{
+			((size_t *)dest)[i / (sizeof(size_t))] = \
+				((size_t *)src)[i / (sizeof(size_t))];
+			i += (sizeof(size_t));
+		}
 	}
 	while (i < n)
 	{
