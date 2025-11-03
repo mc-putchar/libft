@@ -18,7 +18,7 @@ INCDIR := include
 TESTDIR := tests
 
 IDN := $(addprefix $(BINDIR)/, ft_isalnum.o ft_isalpha.o ft_isascii.o \
-	ft_isdigit.o ft_isprint.o ft_isnumber.o)
+	ft_isdigit.o ft_isprint.o ft_isnumber.o ft_isint.o)
 CON := $(addprefix $(BINDIR)/, ft_atoi.o ft_tolower.o ft_toupper.o ft_itoa.o \
 	ft_atod.o)
 MEM := $(addprefix $(BINDIR)/, ft_bzero.o ft_calloc.o ft_memchr.o ft_memrchr.o \
