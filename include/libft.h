@@ -42,7 +42,7 @@ int		ft_isascii(int c);
 int		ft_isspace(int c);
 int		ft_isnumber(char const *str);
 int		is_separator(char c, const char *sep);
-int     ft_isint(char const *str);
+int		ft_isint(char const *str);
 
 /* Conversion functions */
 int		ft_tolower(int c);

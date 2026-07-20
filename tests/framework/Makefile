@@ -30,7 +30,7 @@ all: bonus	# Compile all target binaries
 debug: all	# Compile for debugging
 bonus: $(NAME)	# Compile with bonuses
 
-$(NAME): $(BINS)
+$(NAME): $(HEADER) $(BINS)
 	$(AR) $(ARFLAGS) $@ $^
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@

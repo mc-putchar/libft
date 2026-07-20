@@ -17,43 +17,82 @@ BINDIR := build
 INCDIR := include
 TESTDIR := tests
 
-IDN := $(addprefix $(BINDIR)/, ft_isalnum.o ft_isalpha.o ft_isascii.o \
-	ft_isdigit.o ft_isprint.o ft_isnumber.o ft_isint.o)
-CON := $(addprefix $(BINDIR)/, ft_atoi.o ft_tolower.o ft_toupper.o ft_itoa.o \
-	ft_atod.o)
-MEM := $(addprefix $(BINDIR)/, ft_bzero.o ft_calloc.o ft_memchr.o ft_memrchr.o \
-	ft_memcmp.o ft_memcpy.o ft_memccpy.o ft_memset.o ft_memmove.o)
-STR := $(addprefix $(BINDIR)/, ft_strchr.o ft_strdup.o ft_strjoin.o \
-	ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strncmp.o ft_strnstr.o \
-	ft_strrchr.o ft_strtrim.o ft_substr.o ft_strmapi.o ft_striteri.o \
-	ft_split.o ft_splits.o)
-I/O := $(addprefix $(BINDIR)/, ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o \
-	ft_putnbr_fd.o)
-LST := $(addprefix $(BINDIR)/, ft_lstadd_front.o ft_lstadd_back.o \
-	ft_lstdelone.o ft_lstclear.o ft_lstnew.o ft_lstsize.o ft_lstiter.o \
-	ft_lstlast.o ft_lstmap.o)
-GNL := $(BINDIR)/get_next_line.o
-PRNTF := $(addprefix $(BINDIR)/, ft_printf.o ft_printf_utils.o \
-	ft_printf_converters.o ft_printf_converters_hex.o ft_printf_flags.o)
-OTHER := $(addprefix $(BINDIR)/, ft_error.o)
+SRC :=
+vpath %.c $(SRCDIR)
+SRC += ft_atoi.c
+SRC += ft_atod.c
+SRC += ft_bzero.c
+SRC += ft_calloc.c
+SRC += ft_isalnum.c
+SRC += ft_isalpha.c
+SRC += ft_isascii.c
+SRC += ft_isdigit.c
+SRC += ft_isint.c
+SRC += ft_isnumber.c
+SRC += ft_isprint.c
+SRC += ft_itoa.c
+SRC += ft_lstadd_back.c
+SRC += ft_lstadd_front.c
+SRC += ft_lstclear.c
+SRC += ft_lstdelone.c
+SRC += ft_lstiter.c
+SRC += ft_lstlast.c
+SRC += ft_lstmap.c
+SRC += ft_lstnew.c
+SRC += ft_lstsize.c
+SRC += ft_memccpy.c
+SRC += ft_memchr.c
+SRC += ft_memcmp.c
+SRC += ft_memcpy.c
+SRC += ft_memmove.c
+SRC += ft_memrchr.c
+SRC += ft_memset.c
+SRC += ft_putchar_fd.c
+SRC += ft_putendl_fd.c
+SRC += ft_putnbr_fd.c
+SRC += ft_putstr_fd.c
+SRC += ft_split.c
+SRC += ft_splits.c
+SRC += ft_strchr.c
+SRC += ft_strdup.c
+SRC += ft_striteri.c
+SRC += ft_strjoin.c
+SRC += ft_strlcat.c
+SRC += ft_strlcpy.c
+SRC += ft_strlen.c
+SRC += ft_strmapi.c
+SRC += ft_strncmp.c
+SRC += ft_strnstr.c
+SRC += ft_strrchr.c
+SRC += ft_strtrim.c
+SRC += ft_substr.c
+SRC += ft_tolower.c
+SRC += ft_toupper.c
 
-HEADER := libft.h
-MEMH := libft_mem.h
-STRH := libft_str.h
-I/OH := libft_io.h
-LSTH := libft_lst.h
-GNLH := get_next_line.h
-PRNTFH := ft_printf.h
+ifndef NO_GNL
+	SRC += get_next_line.c
+endif
+ifndef NO_PRINTF
+	SRC += ft_printf.c ft_printf_utils.c ft_printf_converters.c \
+		ft_printf_converters_hex.c ft_printf_flags.c
+endif
+ifndef NO_ERROR
+	SRC += ft_error.c
+endif
+
+OBJ := $(SRC:.c=.o)
+OBJ := $(addprefix $(BINDIR)/, $(OBJ))
+
+DEPS := $(OBJ:.o=.d)
+-include $(DEPS)
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -pedantic -std=c99
-CFLAGS += -march=native -O2
+# CFLAGS += -march=native -O2
 CPPFLAGS := -I$(INCDIR)
 
 debug: DEBUG := 1
-ifeq ($(DEBUG), 1)
-	CFLAGS += -ggdb3 -Og
-endif
+debug: CFLAGS += -ggdb3 -Og
 
 AR := ar
 ARFLAGS := src
@@ -64,31 +103,17 @@ RM := rm -f
 
 all: $(NAME)
 
-$(IDN): $(INCDIR)/$(HEADER)
-$(CON): $(INCDIR)/$(HEADER)
-$(MEM): $(INCDIR)/$(MEMH)
-$(STR): $(INCDIR)/$(STRH)
-$(I/O): $(INCDIR)/$(I/OH)
-$(LST): $(INCDIR)/$(LSTH)
-$(GNL): $(INCDIR)/$(GNLH)
-$(PRNTF): $(INCDIR)/$(PRNTFH)
-$(OTHER): $(INCDIR)/$(HEADER)
+$(NAME): $(OBJ)
+	$(AR) $(ARFLAGS) $@ $(OBJ)
 
-$(NAME): $(INCDIR)/$(HEADER) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) \
-  $(GNL) $(PRNTF) $(OTHER)
-	$(AR) $(ARFLAGS) $(NAME) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) \
-	$(GNL) $(PRNTF) $(OTHER)
-
-$(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF) $(OTHER): \
-  $(BINDIR)/%.o: $(SRCDIR)/%.c |$(BINDIR)
-	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+$(BINDIR)/%.o: %.c |$(BINDIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(BINDIR):
-	$(MKDIR) $(BINDIR)
+	$(MKDIR) $@
 
 clean:
-	$(RM) $(IDN) $(CON) $(MEM) $(STR) $(I/O) $(LST) $(GNL) $(PRNTF) \
-	$(OTHER)
+	$(RM) $(OBJ)
 	$(RM) -r $(BINDIR)
 	$(MAKE) -C $(TESTDIR) $(MAKECMDGOALS)
 
@@ -96,11 +121,12 @@ fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(TESTDIR) $(MAKECMDGOALS)
 
-re: fclean
+re:
+	$(MAKE) fclean
 	$(MAKE) all
 
-debug:
-	DEBUG=1 $(MAKE) re
+debug: fclean
+	DEBUG=1 $(MAKE) all
 
 test: $(NAME)
 	$(MAKE) -C $(TESTDIR) $(MAKECMDGOALS)
