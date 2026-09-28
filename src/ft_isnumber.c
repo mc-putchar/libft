@@ -12,7 +12,7 @@
 
 int	ft_isnumber(char const *str)
 {
-	if (*str == '-' || *str == '+')
+	while (*str == '-' || *str == '+')
 		++str;
 	while (*str)
 	{

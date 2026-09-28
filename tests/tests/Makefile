@@ -19,6 +19,22 @@ SRCS += $(addprefix ft_printf/, \
 	03_char \
 	04_string \
 )
+SRCS += $(addprefix ft_memcpy/, \
+	00_launcher \
+	01_basic_test \
+	02_overlap_test \
+	03_null_test \
+	04_unaligned \
+	05_misaligned \
+)
+SRCS += $(addprefix ft_memmove/, \
+	00_launcher \
+	01_basic_test \
+	02_overlap_test \
+	03_null_test \
+	04_unaligned \
+	05_misaligned \
+)
 BINS := $(SRCS:%=%.o)
 LIBUNITDIR := ../framework
 LIBUNIT := ../libunit.a
@@ -36,10 +52,12 @@ debug: CPPFLAGS += -DDEBUG
 .PHONY: all clean debug fclean re test
 all: $(NAME)
 debug: all
-$(NAME): $(LIBUNIT) $(BINS)
+$(NAME): $(LIBFT) $(LIBUNIT) $(BINS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(BINS) -o $@ $(LDFLAGS) $(LDLIBS)
 $(LIBUNIT):
 	$(MAKE) -C $(LIBUNITDIR)
+$(LIBFT):
+	$(MAKE) -C $(LIBFTDIR)
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -w $(CPPFLAGS) -c $< -o $@
 clean:

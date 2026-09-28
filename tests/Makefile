@@ -24,7 +24,7 @@ framework:
 	@$(MAKE) -C $@
 
 test: $(NAME) $(LIBFT)
-	@$(MAKE) -C tests $(MAKECMDGOALS)
+	@$(MAKE) -C tests $(MAKECMDGOALS) --silent
 
 clean fclean:
 	@$(MAKE) -C framework $(MAKECMDGOALS)
